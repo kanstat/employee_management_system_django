@@ -1,3 +1,4 @@
+# from crypt import methods
 from django.shortcuts import render, HttpResponse
 
 from users.models import employee
@@ -37,7 +38,27 @@ def addemp(request):
 
 
 def filteremp(request):
-    return render(request, 'filter_emp.html')
+    if request.method == "POST":
+        name = request.POST['name']
+        dept = request.POST['dept']
+        role = request.POST['role']
+        all_obj = employee.objects.all()
+        if name:
+            all_obj = all_obj.filter(name__icontains=name)
+        if dept:
+            all_obj = all_obj.filter(dept__name=dept)
+        if role:
+            all_obj = all_obj.filter(role__name=role)
+        diction = {
+            'all_obj': all_obj
+        }
+        print
+        return render(request, 'view_emp.html', diction)
+
+    elif request.method == "GET":
+        return render(request, 'filter_emp.html')
+    else:
+        return HttpResponse("Not Found")
 
 
 def deleteemp(request, emp_id=0):

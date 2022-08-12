@@ -7,4 +7,5 @@ urlpatterns = [
     path('add', views.addemp, name='addemp'),
     path('filter', views.filteremp, name='filteremp'),
     path('delete', views.deleteemp, name='deleteemp'),
+    path('delete/<int:emp_id>', views.deleteemp, name='deleteemp'),
 ]

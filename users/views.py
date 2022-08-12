@@ -17,12 +17,39 @@ def viewemp(request):
 
 
 def addemp(request):
-    return render(request, 'add_emp.html')
+    if request.method == "POST":
+
+        namee = request.POST['name']
+        deptt = request.POST['dept']
+        salaryy = int(request.POST['salary'])
+        bonuss = int(request.POST['bonus'])
+        rolee = (request.POST['role'])
+        phonee = int(request.POST['phone'])
+        hire_datee = (request.POST['hire_date'])
+        new_empp = employee(name=namee, dept_id=deptt, salary=salaryy,
+                            bonus=bonuss, role_id=rolee, phone=phonee, hire_date=hire_datee)
+        new_empp.save()
+        return HttpResponse('Employee Added Sucessfully')
+    elif request.method == "GET":
+        return render(request, 'add_emp.html')
+    else:
+        return HttpResponse("An exception has occured")
 
 
 def filteremp(request):
     return render(request, 'filter_emp.html')
 
 
-def deleteemp(request):
-    return render(request, 'delete_emp.html')
+def deleteemp(request, emp_id=0):
+    if emp_id:
+        try:
+            emp_removed = employee.objects.get(id=emp_id)
+            emp_removed.delete()
+            return HttpResponse("Employee removed sucessfully")
+        except:
+            return HttpResponse("Please enter valid employee id")
+    emps = employee.objects .all()
+    context_dic = {
+        'emps': emps
+    }
+    return render(request, 'delete_emp.html', context_dic)

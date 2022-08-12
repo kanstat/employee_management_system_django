@@ -14,16 +14,19 @@
 <body style="background-color: black;">
     <h1 id="heading">Delete An Employee</h1>
     <hr>
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
-            leftmargin="100px">
-            Choose an Employee to be deleted
-        </button>
-        <ul class="dropdown-menu">
-            {% for emp in emps %}
-            <li><a class="dropdown-item" href="/delete/{{ emp.id }}">{{ emp.name }}</a></li>
-            {% endfor %}
-        </ul>
+
+    <div id="drop">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false" leftmargin="100px">
+                Choose an Employee to be deleted
+            </button>
+            <ul class="dropdown-menu">
+                {% for emp in emps %}
+                <li><a class="dropdown-item" href="/delete/{{ emp.id }}">{{ emp.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
